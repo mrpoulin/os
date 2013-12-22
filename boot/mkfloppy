@@ -1,0 +1,38 @@
+#! /bin/bash
+# The kernel will be copied on a FAT12 virtual floppy disk for now.
+# To actually load the kernel, the bootsector of the floppy disk must
+# contain the "first stage bootloader" which will load the second stage bootloader
+
+mkdir -p bin
+
+IMG=bin/floppy.img
+BOOT_SRC=boot.s
+BOOT2_SRC=kernldr.s
+BOOT2_BIN=bin/KERNLDR
+BOOT_BIN=bin/boot.bin
+
+# Compile the boot file
+nasm $BOOT_SRC -o $BOOT_BIN
+nasm $BOOT2_SRC -o $BOOT2_BIN
+
+# Remove floppy image if it already exists
+rm $IMG
+
+# First, generate a standard 3.5" floppy image
+dd if=/dev/zero of=$IMG bs=512 count=2880
+
+# Now, write the FAT12 system to the file
+mkdosfs -F 12 -S 512 $IMG
+
+# Finally overwite the boot sector.
+# From the FAT12/16 documentation, the bootsector starts at byte
+# 62 and is 448 bytes in length (450 including the boot signature).
+# We have skip 62 bytes in the source file (boot.bin) since we use the
+# first 62 bytes to set up FAT metadata. We don't want to overwite the
+# metadata given to us by mkfsdos with the junk we declared.
+dd if=$BOOT_BIN of=$IMG bs=1 count=3 conv=notrunc
+dd if=$BOOT_BIN of=$IMG conv=notrunc bs=1 count=450 seek=62 skip=62
+
+# Now, we can copy the kernel onto the floppy.
+mcopy -i $IMG $BOOT2_BIN ::/
+mdir -i $IMG
