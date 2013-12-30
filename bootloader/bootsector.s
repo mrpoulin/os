@@ -215,13 +215,15 @@ loader:
 
     mov cx, 0xB                 ; File names are 11 bytes in length.
     add di, DIRENT_SZ
+    push di
     mov si, file_name           ; Do I need to keep doing this?
     repe cmpsb
+    pop di
     jne search_loop
 
   found_file:
     ; di is advanced by the length of the filename string during the cmpsb.
-    mov ax, [di + 0x001a - 0xb]
+    mov ax, [di + 0x001a]
     push ax
 
     ; Load FAT table into memory

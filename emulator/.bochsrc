@@ -22,6 +22,6 @@ boot: floppy, disk
 # ---------------------------------------------  
 # FLOPPY DRIVE
 # ---------------------------------------------  
-floppya: 2_88=../boot/bin/floppy.img, status=inserted
+floppya: 2_88=./media/floppy.img, status=inserted
 
 display_library: x, options="gui_debug"

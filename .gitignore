@@ -1,2 +1,4 @@
 doc
-boot/bin
+boot/build
+kern/build
+emulator/media
