@@ -3,7 +3,10 @@
 -include kern/defs.mk
 -include bootloader/defs.mk
 
-kern-floppy : $(FLOPPY_IMG) $(K_BIN)
+kern-floppy : $(K_BIN)
+	mcopy -i $(FLOPPY_IMG) $(K_BIN) ::/
+
+kern-floppy-all : $(FLOPPY_IMG) $(K_BIN)
 	mcopy -i $(FLOPPY_IMG) $(K_BIN) ::/
 
 # Generates a 3.5" floppy disk image with the first and second

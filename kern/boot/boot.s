@@ -1,4 +1,3 @@
-
 .section .bootstrap_stack
 stack_bottom:
 .skip 16384
@@ -17,3 +16,5 @@ _start:
 
 .Lhang:
   jmp .Lhang
+
+.size _start, . - _start

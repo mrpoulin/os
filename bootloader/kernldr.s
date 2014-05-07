@@ -214,10 +214,7 @@ continue_read:
 
 ;-----------------------------------------
 ; load_file
-; Reads a given sector from a given offset
-; into disk.
-; AX    : Filename
-; ES:BX : Buffer location
+; Reads kernel into memory.
 ; 
 ;-----------------------------------------
 

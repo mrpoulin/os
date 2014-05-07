@@ -1,7 +1,7 @@
 # Common makefile definitions
 
 NASM    := nasm
-CXX     := i686-elf-g++
+CXX     := i686-elf-gcc
 GAS     := i686-elf-as
-CFLAGS  := -Wall -Wextra -ffreestanding -O2 -fno-exceptions -fno-rtti
+CFLAGS  := -Wall -Wextra -ffreestanding -std=gnu99
 LDFLAGS := -ffreestanding -O2 -nostdlib

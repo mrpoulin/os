@@ -1,31 +1,25 @@
-
 ENTRY(_start)
 
-SECTIONS
+SECTIONS 
 {
 
-  . = 1M;
-  
-  .text BLOCK(4K) :
+  . = 0x100000;
+
+  .text :
   {
     *(.text)
-  }
-
-  .rodata BLOCK(4K) :
-  {
     *(.rodata)
   }
 
-  .data BLOCK(4K) :
+  .data ALIGN(4K) :
   {
     *(.data)
   }
 
-  .bss BLOCK(4K) :
+  .bss ALIGN(4K) :
   {
-    *(.COMMON)
+    *(COMMON)
     *(.bss)
     *(.bootstrap_stack)
   }
-
 }

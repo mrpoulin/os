@@ -1,11 +1,8 @@
 #include <stddef.h>
-#include <stdint.h>
-
-
+ 
 #if defined(__cplusplus)
-extern "C"
+extern "C" /* Use C linkage for kernel_main. */
 #endif
-
-void kmain() {
-  ;
+void kmain()
+{
 }
